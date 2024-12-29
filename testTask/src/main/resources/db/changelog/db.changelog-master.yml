@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-master.yml
+  - changeSet:
+      id: 1
+      author: your_liquibase_wallet
+      changes:
+        - createTable:
+            tableName: wallet_liquibase
+            columns:
+              - column:
+                  name: uuid
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: operation_type
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal(10,2)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 2
+      author: your_liquibase_wallet
+      comment: "Create wallet"
+      changes:
+        - insert:
+            tableName: wallet_liquibase
+            columns:
+              - column:
+                  name: uuid
+                  value: "02c4d965-f2f2-4fc4-93ec-4809a9f73fcc"
+              - column:
+                  name: operation_type
+                  value: "DEPOSIT"
+              - column:
+                  name: amount
+                  value: "7564.45"
+        - insert:
+            tableName: wallet_liquibase
+            columns:
+              - column:
+                  name: uuid
+                  value: "df1cc75d-c82c-4d1a-8e18-77c675717334"
+              - column:
+                  name: operation_type
+                  value: "WITHDRAW"
+              - column:
+                  name: amount
+                  value: "12374.12"
+      rollback:
+        - delete:
+            tableName: wallet_liquibase
+            where: uuid in ('02c4d965-f2f2-4fc4-93ec-4809a9f73fcc', 'df1cc75d-c82c-4d1a-8e18-77c675717334')

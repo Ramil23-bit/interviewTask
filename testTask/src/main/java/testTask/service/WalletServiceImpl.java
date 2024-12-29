@@ -8,6 +8,7 @@ import testTask.exception.NotEnoughFundsException;
 import testTask.repository.WalletJpaRepository;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,6 +17,12 @@ public class WalletServiceImpl implements WalletService {
 
     @Autowired
     private WalletJpaRepository walletJpaRepository;
+
+    @Override
+    public List<Wallet> getAll() {
+        return walletJpaRepository.findAll();
+    }
+
     @Override
     public Wallet getByUUID(UUID uuid) {
         return walletJpaRepository.findWalletByUuid(uuid);

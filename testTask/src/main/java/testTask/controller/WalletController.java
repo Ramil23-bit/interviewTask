@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import testTask.entity.Wallet;
 import testTask.service.WalletService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -14,6 +15,10 @@ public class WalletController {
     @Autowired
     private WalletService walletService;
 
+    @GetMapping("/all/wallet")
+    public List<Wallet> getAll(){
+        return walletService.getAll();
+    }
     @GetMapping("/wallet/{uuid}")
     public Wallet getWalletByUUID(@PathVariable("uuid") UUID uuid){
         return walletService.getByUUID(uuid);
